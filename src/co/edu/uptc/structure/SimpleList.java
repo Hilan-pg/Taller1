@@ -6,6 +6,11 @@ import java.util.List;
 import java.util.ListIterator;
 
 public class SimpleList<T> implements List {
+    private Node<T> head;
+
+    public SimpleList(){
+        head = null;
+    }
 
     @Override
     public int size() {
@@ -15,8 +20,7 @@ public class SimpleList<T> implements List {
 
     @Override
     public boolean isEmpty() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'isEmpty'");
+        return head == null;
     }
 
     @Override
