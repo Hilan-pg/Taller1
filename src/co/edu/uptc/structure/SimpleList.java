@@ -5,7 +5,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
 
-public class SimpleList<T> implements List {
+public class SimpleList<T> implements List<T> {
     private Node<T> head;
 
     public SimpleList(){
@@ -96,10 +96,22 @@ public class SimpleList<T> implements List {
     }
 
     @Override
-    public Object get(int index) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'get'");
-    }
+    public T get(int index) {
+        Node<T>  aux = head;
+        int count = 0;
+        T data = null;
+
+        while (aux != null) {
+            if (count == index) {
+                data = aux.getData();
+  
+            }
+            aux = aux.getNext();
+            count++;
+        } 
+
+        return data;
+    }   
 
     @Override
     public Object set(int index, Object element) {
@@ -114,7 +126,7 @@ public class SimpleList<T> implements List {
     }
 
     @Override
-    public Object remove(int index) {
+    public T remove(int index) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'remove'");
     }
