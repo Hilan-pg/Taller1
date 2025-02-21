@@ -32,8 +32,25 @@ public class SimpleList<T> implements List<T>{
 
     @Override
     public Iterator<T> iterator() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'iterator'");
+        Iterator<T> iterator = new Iterator<T>() {
+            Node<T> aux = head;
+
+
+            @Override
+            public boolean hasNext() {
+                return aux != null;
+            }
+
+            @Override
+            public T next() {
+                T num = (T) aux.getData();
+                aux = aux.getNext();
+                return num;
+            }
+
+        };
+        return iterator;
+
     }
 
     @Override
