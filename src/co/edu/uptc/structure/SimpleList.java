@@ -17,8 +17,15 @@ public class SimpleList<T> implements List<T> {
 
     @Override
     public int size() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'size'");
+        int total = 0;
+        Node<T> auxNode = head;
+    
+        while (auxNode != null) {
+            total++;
+            auxNode = auxNode.getNext();
+        }
+    
+        return total;
     }
 
     @Override
