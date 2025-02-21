@@ -19,12 +19,12 @@ public class SimpleList<T> implements List<T> {
     public int size() {
         int total = 0;
         Node<T> auxNode = head;
-    
+
         while (auxNode != null) {
             total++;
             auxNode = auxNode.getNext();
         }
-    
+
         return total;
     }
 
@@ -35,16 +35,8 @@ public class SimpleList<T> implements List<T> {
 
     @Override
     public boolean contains(Object o) {
-        Node<T> auxNode = head;
-
-    while (auxNode != null) {
-        if (o != null && o.equals(auxNode.getData())) {
-            return true;
-        }
-        auxNode = auxNode.getNext();
-    }
-
-    return false; 
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'contains'");
     }
 
     @Override
@@ -132,8 +124,20 @@ public class SimpleList<T> implements List<T> {
 
     @Override
     public boolean remove(Object o) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'remove'");
+        boolean value = false;
+        if (head.getData() == o) {
+            head = head.getNext();
+            value = true;
+        }
+        Node<T> aux = head;
+        while (aux != null) {
+            if (aux.getNext().getData() == o) {
+                aux.setNext(aux.getNext().getNext());
+                value = true;
+            }
+            aux = aux.getNext();
+        }
+        return value;
     }
 
     @Override
@@ -177,17 +181,68 @@ public class SimpleList<T> implements List<T> {
             return false;
         }
         for (T element : c) {
-            add(element); 
+            add(element);
             modified = true;
         }
-    
-        return modified; 
+
+        return modified;
     }
 
     @Override
     public boolean addAll(int index, Collection<? extends T> c) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'addAll'");
+        if (index < 0) {
+            throw new IndexOutOfBoundsException("Index cannot be negative.");
+        }
+        if (isEmpty()) {
+            return false;
+        }
+        if (index == 0) {
+            Node<T> newHead = null;
+            Node<T> lastNewNode = null;
+    
+            for (T element : c) {
+                Node<T> newNode = new Node<>(element);
+                if (newHead == null) {
+                    newHead = newNode;
+                } else {
+                    lastNewNode.setNext(newNode);
+                }
+                lastNewNode = newNode;
+            }
+    
+            if (lastNewNode != null) {
+                lastNewNode.setNext(head);
+            }
+            head = newHead;
+            return true;
+        }
+        int count = 0;
+        Node<T> aux = head;
+
+        while (aux != null && count < index - 1) {
+            aux = aux.getNext();
+            count++;
+        }
+
+        if (aux == null) {
+            throw new IndexOutOfBoundsException("Index out of bounds.");
+        }
+        Node<T> nexNode = aux.getNext();
+        Node<T> lastNode = null;
+
+        for (T object : c) {
+            Node<T> newNode = new Node<>(object);
+            if (lastNode == null) {
+                aux.setNext(newNode);
+            } else {
+                lastNode.setNext(newNode);
+            }
+            lastNode = newNode;
+        }
+        if (lastNode!= null) {
+            lastNode.setNext(nexNode);
+        }
+        return false;
     }
 
     @Override
@@ -217,40 +272,8 @@ public class SimpleList<T> implements List<T> {
 
     @Override
     public boolean retainAll(Collection<?> c) {
-        if (c == null) {
-            throw new NullPointerException("La colección no puede ser null.");
-        }
-
-        ArrayList<T> toAdd = new ArrayList<T>();
-
-        Node<T> aux = head;
-        while (aux != null) {
-            for (Object element : c) {
-                if (element.equals(aux.getData())) {
-                    toAdd.add(aux.getData());
-                    break;
-                }
-            }
-            aux = aux.getNext();
-        }
-
-        if (toAdd.isEmpty()) {
-            head = null;
-            return true;
-        }
-    
-        if (toAdd.size() == size()) {
-            return false;
-        }
-
-        head = new Node<>(toAdd.get(0));
-        aux = head;
-        for (int i = 1; i < toAdd.size(); i++) {
-            aux.setNext(new Node<>(toAdd.get(i)));
-            aux = aux.getNext();
-        }
-
-        return true;
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'retainAll'");
     }
 
     @Override
@@ -260,6 +283,10 @@ public class SimpleList<T> implements List<T> {
 
     @Override
     public T get(int index) {
+        if (index < 0) {
+            throw new IndexOutOfBoundsException("Index cannot be negative.");
+        }
+
         Node<T> aux = head;
         int count = 0;
         T data = null;
@@ -271,6 +298,7 @@ public class SimpleList<T> implements List<T> {
             aux = aux.getNext();
             count++;
         }
+
         return data;
     }
 
@@ -317,23 +345,44 @@ public class SimpleList<T> implements List<T> {
 
     @Override
     public T remove(int index) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'remove'");
+        if (index < 0) {
+            throw new IndexOutOfBoundsException("Index cannot be negative.");
+        }
+
+        if (isEmpty()) {
+            throw new IndexOutOfBoundsException("List is empty.");
+        }
+
+        int count = 0;
+        T data = null;
+        Node<T> aux = head;
+        while (aux != null && count < index) {
+            if (count == index - 1) {
+                data = aux.getNext().getData();
+                aux.setNext(aux.getNext().getNext());
+            }
+            count++;
+        }
+
+        if (aux == null || aux.getNext() == null) {
+            throw new IndexOutOfBoundsException("Index out of bounds.");
+        }
+        return data;
     }
 
     @Override
     public int indexOf(Object o) {
         Node<T> auxNode = head;
         int i = 0;
-    
+
         while (auxNode != null) {
             if (o != null && o.equals(auxNode.getData())) {
-                return i; 
+                return i;
             }
             auxNode = auxNode.getNext();
             i++;
         }
-    
+
         return -1;
     }
 
@@ -368,22 +417,7 @@ public class SimpleList<T> implements List<T> {
 
     @Override
     public List<T> subList(int fromIndex, int toIndex) {
-        if (fromIndex < 0 || toIndex > size() || fromIndex > toIndex) {
-            throw new IndexOutOfBoundsException("Índices fuera de rango.");
-        }
-    
-        List<T> subList = new SimpleList<>(); 
-        Node<T> aux = head;
-        int index = 0;
-    
-        while (aux != null && index < toIndex) {
-            if (index >= fromIndex) {
-                subList.add(aux.getData());
-            }
-            aux = aux.getNext();
-            index++;
-        }
-    
-        return subList;
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'subList'");
     }
 }
