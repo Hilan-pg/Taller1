@@ -129,8 +129,16 @@ public class SimpleList<T> implements List<T> {
 
     @Override
     public boolean addAll(Collection<? extends T> c) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'addAll'");
+        boolean modified = false;
+        if (c == null || c.isEmpty()) {
+            return false;
+        }
+        for (T element : c) {
+            add(element); 
+            modified = true;
+        }
+    
+        return modified; 
     }
 
     @Override
@@ -240,8 +248,18 @@ public class SimpleList<T> implements List<T> {
 
     @Override
     public int indexOf(Object o) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'indexOf'");
+        Node<T> auxNode = head;
+        int i = 0;
+    
+        while (auxNode != null) {
+            if (o != null && o.equals(auxNode.getData())) {
+                return i; 
+            }
+            auxNode = auxNode.getNext();
+            i++;
+        }
+    
+        return -1;
     }
 
     @Override
