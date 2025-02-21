@@ -274,8 +274,19 @@ public class SimpleList<T> implements List<T> {
 
     @Override
     public int lastIndexOf(Object o) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'lastIndexOf'");
+        int lastIndexOf = -1;
+        int index = 0;
+
+        Node<T> aux = head;
+        while(aux != null){
+            if(aux.getData().equals(o)){
+                lastIndexOf = index;
+            }
+            aux = aux.getNext();
+            index++;
+        }
+
+        return lastIndexOf;
     }
 
     @Override
