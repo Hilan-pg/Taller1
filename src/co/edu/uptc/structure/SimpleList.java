@@ -194,8 +194,40 @@ public class SimpleList<T> implements List<T> {
 
     @Override
     public boolean retainAll(Collection<?> c) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'retainAll'");
+        if (c == null) {
+            throw new NullPointerException("La colección no puede ser null.");
+        }
+
+        ArrayList<T> toAdd = new ArrayList<T>();
+
+        Node<T> aux = head;
+        while (aux != null) {
+            for (Object element : c) {
+                if (element.equals(aux.getData())) {
+                    toAdd.add(aux.getData());
+                    break;
+                }
+            }
+            aux = aux.getNext();
+        }
+
+        if (toAdd.isEmpty()) {
+            head = null;
+            return true;
+        }
+    
+        if (toAdd.size() == size()) {
+            return false;
+        }
+
+        head = new Node<>(toAdd.get(0));
+        aux = head;
+        for (int i = 1; i < toAdd.size(); i++) {
+            aux.setNext(new Node<>(toAdd.get(i)));
+            aux = aux.getNext();
+        }
+
+        return true;
     }
 
     @Override
@@ -278,8 +310,8 @@ public class SimpleList<T> implements List<T> {
         int index = 0;
 
         Node<T> aux = head;
-        while(aux != null){
-            if(aux.getData().equals(o)){
+        while (aux != null) {
+            if (aux.getData().equals(o)) {
                 lastIndexOf = index;
             }
             aux = aux.getNext();
