@@ -1,5 +1,6 @@
 package co.edu.uptc.structure;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
@@ -55,8 +56,11 @@ public class SimpleList<T> implements List<T> {
 
     @Override
     public Object[] toArray() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'toArray'");
+        if (head == null) {
+            throw new IllegalArgumentException("La lista está vacía.");
+        }
+
+        ArrayList<T> list = new ArrayList<T>();
     }
 
     @Override
@@ -192,25 +196,26 @@ public class SimpleList<T> implements List<T> {
         }
 
         if (head == null) {
-            throw new IndexOutOfBoundsException("Índice fuera de rango para una lista vacía.");
+            throw new IndexOutOfBoundsException("La lista está vacía.");
         }
 
         Node<T> aux = new Node<T>(element);
 
-        if(index == 0){
+        if (index == 0) {
             aux.setNext(head);
             head = aux;
+            return;
         }
 
         Node<T> current = head;
         int count = 0;
 
-        while (current!= null && count < index - 1) {
+        while (current != null && count < index - 1) {
             current = current.getNext();
             count++;
         }
 
-        aux.setNext(current);
+        aux.setNext(current.getNext());
         current.setNext(aux);
     }
 
