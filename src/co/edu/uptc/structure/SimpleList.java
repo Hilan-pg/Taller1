@@ -109,8 +109,27 @@ public class SimpleList<T> implements List<T>{
 
     @Override
     public boolean removeAll(Collection<?> c) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'removeAll'");
+        if (c.isEmpty()) {
+            return false;
+        }
+        boolean removed = false;
+
+        while (head != null && c.contains(head.getData())) {
+            head = head.getNext();
+            removed = true;
+        }
+        Node<T> NodeAux = head;
+        while (NodeAux != null && NodeAux.getNext() != null) {
+            if (c.contains(NodeAux.getNext().getData())) {
+                NodeAux.setNext(NodeAux.getNext().getNext());
+                removed = true;
+            } else {
+                NodeAux = NodeAux.getNext();
+            }
+        }
+
+        return removed;
+    
     }
 
     @Override
