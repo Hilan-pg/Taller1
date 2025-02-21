@@ -193,8 +193,13 @@ public class SimpleList<T> implements List<T> {
 
     @Override
     public T set(int index, T element) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'set'");
+        Node<T> auxNode = head;
+        for (int i = 0; i < index; i++) {
+            auxNode = auxNode.getNext(); 
+        }
+        T oldData = auxNode.getData(); 
+        auxNode.setData(element); 
+        return oldData; 
     }
 
     @Override
