@@ -368,7 +368,22 @@ public class SimpleList<T> implements List<T> {
 
     @Override
     public List<T> subList(int fromIndex, int toIndex) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'subList'");
+        if (fromIndex < 0 || toIndex > size() || fromIndex > toIndex) {
+            throw new IndexOutOfBoundsException("Índices fuera de rango.");
+        }
+    
+        List<T> subList = new SimpleList<>(); 
+        Node<T> aux = head;
+        int index = 0;
+    
+        while (aux != null && index < toIndex) {
+            if (index >= fromIndex) {
+                subList.add(aux.getData());
+            }
+            aux = aux.getNext();
+            index++;
+        }
+    
+        return subList;
     }
 }
