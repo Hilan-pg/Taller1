@@ -50,8 +50,18 @@ public class SimpleList<T> implements List<T>{
 
     @Override
     public boolean add(T e) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'add'");
+        if (head == null) {
+			head = new Node<T>(e);
+		} else {
+			Node<T> aux = head;
+			while (aux.getNext() != null) {
+				aux = aux.getNext();
+			}
+			aux.setNext(new Node<T>(e));
+            return true;
+		}
+        return false;
+
     }
 
     @Override
@@ -92,8 +102,7 @@ public class SimpleList<T> implements List<T>{
 
     @Override
     public void clear() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'clear'");
+        head = null;
     }
 
     @Override
