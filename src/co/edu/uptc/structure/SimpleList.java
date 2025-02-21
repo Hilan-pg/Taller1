@@ -35,8 +35,15 @@ public class SimpleList<T> implements List<T> {
 
     @Override
     public boolean contains(Object o) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'contains'");
+        Node<T> auxNode = head;
+
+        while (auxNode != null) {
+            if (o != null && o.equals(auxNode.getData())) {
+                return true;
+            }
+            auxNode = auxNode.getNext();
+        }
+        return false; 
     }
 
     @Override
