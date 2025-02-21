@@ -195,11 +195,11 @@ public class SimpleList<T> implements List<T> {
     public T set(int index, T element) {
         Node<T> auxNode = head;
         for (int i = 0; i < index; i++) {
-            auxNode = auxNode.getNext(); 
+            auxNode = auxNode.getNext();
         }
-        T oldData = auxNode.getData(); 
-        auxNode.setData(element); 
-        return oldData; 
+        T oldData = auxNode.getData();
+        auxNode.setData(element);
+        return oldData;
     }
 
     @Override
