@@ -4,6 +4,7 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
+import java.lang.reflect.Array;
 
 public class SimpleList<T> implements List<T>{
 
@@ -61,9 +62,32 @@ public class SimpleList<T> implements List<T>{
 
     @Override
     public <T> T[] toArray(T[] a) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'toArray'");
+        int size = 0;
+
+        Node<T> aux = (Node<T>) head;
+        while (aux != null) {
+            size++;
+            aux = aux.getNext();
+        }
+
+        if (a.length < size) {
+            a = (T[]) Array.newInstance(a.getClass().getComponentType(), size);
+        }
+
+        aux = (Node<T>) head;
+        int i = 0;
+        while (aux!= null) {
+            a[i++] = aux.getData();
+            aux = aux.getNext();
+        }
+
+        if (a.length > size) {
+            a[size] = null;
+        }
+        return a;
     }
+
+    
 
     @Override
     public boolean add(T e) {
@@ -140,8 +164,7 @@ public class SimpleList<T> implements List<T>{
 
     @Override
     public void clear() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'clear'");
+        head = null;
     }
 
     @Override
