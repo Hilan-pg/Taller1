@@ -6,11 +6,11 @@ import java.util.List;
 import java.util.ListIterator;
 import java.lang.reflect.Array;
 
-public class SimpleList<T> implements List<T>{
+public class SimpleList<T> implements List<T> {
 
     private Node<T> head;
 
-    public SimpleList(){
+    public SimpleList() {
         head = null;
     }
 
@@ -35,7 +35,6 @@ public class SimpleList<T> implements List<T>{
     public Iterator<T> iterator() {
         Iterator<T> iterator = new Iterator<T>() {
             Node<T> aux = head;
-
 
             @Override
             public boolean hasNext() {
@@ -76,7 +75,7 @@ public class SimpleList<T> implements List<T>{
 
         aux = (Node<T>) head;
         int i = 0;
-        while (aux!= null) {
+        while (aux != null) {
             a[i++] = aux.getData();
             aux = aux.getNext();
         }
@@ -87,25 +86,22 @@ public class SimpleList<T> implements List<T>{
         return a;
     }
 
-    
-
     @Override
     public boolean add(T e) {
         boolean exist = false;
         if (head == null) {
-			head = new Node<T>(e);
+            head = new Node<T>(e);
             exist = true;
-		} else {
-			Node<T> aux = head;
-			while (aux.getNext() != null) {
-				aux = aux.getNext();
-			}
-			aux.setNext(new Node<T>(e));
+        } else {
+            Node<T> aux = head;
+            while (aux.getNext() != null) {
+                aux = aux.getNext();
+            }
+            aux.setNext(new Node<T>(e));
             exist = true;
-		}
+        }
         return exist;
     }
-
 
     @Override
     public boolean remove(Object o) {
@@ -153,7 +149,7 @@ public class SimpleList<T> implements List<T>{
         }
 
         return removed;
-    
+
     }
 
     @Override
@@ -169,7 +165,7 @@ public class SimpleList<T> implements List<T>{
 
     @Override
     public T get(int index) {
-        Node<T>  aux = head;
+        Node<T> aux = head;
         int count = 0;
         T data = null;
 
@@ -179,7 +175,7 @@ public class SimpleList<T> implements List<T>{
             }
             aux = aux.getNext();
             count++;
-        } 
+        }
         return data;
     }
 
@@ -196,8 +192,31 @@ public class SimpleList<T> implements List<T>{
 
     @Override
     public void add(int index, T element) {
-        
-        throw new UnsupportedOperationException("Unimplemented method 'add'");
+        if (index < 0) {
+            throw new IndexOutOfBoundsException("Índice negativo.");
+        }
+
+        if (head == null) {
+            throw new IndexOutOfBoundsException("Índice fuera de rango para una lista vacía.");
+        }
+
+        Node<T> aux = new Node<T>(element);
+
+        if(index == 0){
+            aux.setNext(head);
+            head = aux;
+        }
+
+        Node<T> current = head;
+        int count = 0;
+
+        while (current!= null && count < index - 1) {
+            current = current.getNext();
+            count++;
+        }
+
+        aux.setNext(current);
+        current.setNext(aux);
     }
 
     @Override
