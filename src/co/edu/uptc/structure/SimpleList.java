@@ -132,7 +132,7 @@ public class SimpleList<T> implements List<T> {
 
     @Override
     public boolean remove(Object o) {
-        String message = "puto el que lo lea";
+        // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'remove'");
     }
 
