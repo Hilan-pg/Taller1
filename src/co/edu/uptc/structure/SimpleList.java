@@ -123,8 +123,36 @@ public class SimpleList<T> implements List<T> {
 
     @Override
     public boolean containsAll(Collection<?> c) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'containsAll'");
+        if (head == null) {
+            throw new IllegalArgumentException("La lista está vacía");
+        }
+
+        int count = 0;
+        Node<T> aux = head;
+
+        while (aux != null) {
+            aux = aux.getNext();
+            count++;
+        }
+
+        if (c.size() > count) {
+            throw new IndexOutOfBoundsException("El index es mayor a la lista.");
+        }
+
+        aux = head;
+        count = 0;
+
+        for (Object element : c) {
+            while (aux != null) {
+                if (element.equals(aux.getData())) {
+                    count++;
+                }
+                aux = aux.getNext();
+            }
+            aux = head;
+        }
+
+        return count == c.size();
     }
 
     @Override
