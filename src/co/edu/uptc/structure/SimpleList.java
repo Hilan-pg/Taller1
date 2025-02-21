@@ -191,7 +191,7 @@ public class SimpleList<T> implements List<T>{
 
     @Override
     public void add(int index, T element) {
-        // TODO Auto-generated method stub
+        System.out.println("bobo");
         throw new UnsupportedOperationException("Unimplemented method 'add'");
     }
 
