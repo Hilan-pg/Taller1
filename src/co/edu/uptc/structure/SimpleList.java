@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.ListIterator;
 
 public class SimpleList<T> implements List<T>{
-    
+
     private Node<T> head;
 
     public SimpleList(){
@@ -50,9 +50,19 @@ public class SimpleList<T> implements List<T>{
 
     @Override
     public boolean add(T e) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'add'");
+        if (head == null) {
+			head = new Node<T>(e);
+		} else {
+			Node<T> aux = head;
+			while (aux.getNext() != null) {
+				aux = aux.getNext();
+			}
+			aux.setNext(new Node<T>(e));
+            return true;
+		}
+        return false;
     }
+
 
     @Override
     public boolean remove(Object o) {
@@ -159,5 +169,4 @@ public class SimpleList<T> implements List<T>{
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'subList'");
     }
-    
 }
