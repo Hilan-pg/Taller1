@@ -61,6 +61,14 @@ public class SimpleList<T> implements List<T> {
         }
 
         ArrayList<T> list = new ArrayList<T>();
+
+        Node<T> aux = head;
+        while (aux != null) {
+            list.add(aux.getData());
+            aux = aux.getNext();
+        }
+
+        return list.toArray();
     }
 
     @Override
