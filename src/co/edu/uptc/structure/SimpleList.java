@@ -67,17 +67,19 @@ public class SimpleList<T> implements List<T>{
 
     @Override
     public boolean add(T e) {
+        boolean exist = false;
         if (head == null) {
 			head = new Node<T>(e);
+            exist = true;
 		} else {
 			Node<T> aux = head;
 			while (aux.getNext() != null) {
 				aux = aux.getNext();
 			}
 			aux.setNext(new Node<T>(e));
-            return true;
+            exist = true;
 		}
-        return false;
+        return exist;
     }
 
 
