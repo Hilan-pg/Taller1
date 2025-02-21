@@ -17,8 +17,15 @@ public class SimpleList<T> implements List<T> {
 
     @Override
     public int size() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'size'");
+        int total = 0;
+        Node<T> auxNode = head;
+    
+        while (auxNode != null) {
+            total++;
+            auxNode = auxNode.getNext();
+        }
+    
+        return total;
     }
 
     @Override
@@ -28,8 +35,16 @@ public class SimpleList<T> implements List<T> {
 
     @Override
     public boolean contains(Object o) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'contains'");
+        Node<T> auxNode = head;
+
+    while (auxNode != null) {
+        if (o != null && o.equals(auxNode.getData())) {
+            return true;
+        }
+        auxNode = auxNode.getNext();
+    }
+
+    return false; 
     }
 
     @Override
@@ -157,8 +172,16 @@ public class SimpleList<T> implements List<T> {
 
     @Override
     public boolean addAll(Collection<? extends T> c) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'addAll'");
+        boolean modified = false;
+        if (c == null || c.isEmpty()) {
+            return false;
+        }
+        for (T element : c) {
+            add(element); 
+            modified = true;
+        }
+    
+        return modified; 
     }
 
     @Override
@@ -300,8 +323,18 @@ public class SimpleList<T> implements List<T> {
 
     @Override
     public int indexOf(Object o) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'indexOf'");
+        Node<T> auxNode = head;
+        int i = 0;
+    
+        while (auxNode != null) {
+            if (o != null && o.equals(auxNode.getData())) {
+                return i; 
+            }
+            auxNode = auxNode.getNext();
+            i++;
+        }
+    
+        return -1;
     }
 
     @Override
