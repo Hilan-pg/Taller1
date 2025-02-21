@@ -199,7 +199,7 @@ public class SimpleList<T> implements List<T> {
         if (index == 0) {
             Node<T> newHead = null;
             Node<T> lastNewNode = null;
-    
+
             for (T element : c) {
                 Node<T> newNode = new Node<>(element);
                 if (newHead == null) {
@@ -209,7 +209,7 @@ public class SimpleList<T> implements List<T> {
                 }
                 lastNewNode = newNode;
             }
-    
+
             if (lastNewNode != null) {
                 lastNewNode.setNext(head);
             }
@@ -239,7 +239,7 @@ public class SimpleList<T> implements List<T> {
             }
             lastNode = newNode;
         }
-        if (lastNode!= null) {
+        if (lastNode != null) {
             lastNode.setNext(nexNode);
         }
         return false;
@@ -272,8 +272,41 @@ public class SimpleList<T> implements List<T> {
 
     @Override
     public boolean retainAll(Collection<?> c) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'retainAll'");
+        if (c == null) {
+            throw new NullPointerException("La colección no puede ser null.");
+        }
+
+        ArrayList<T> toAdd = new ArrayList<T>();
+
+        Node<T> aux = head;
+        while (aux != null) {
+            for (Object element : c) {
+                if (element.equals(aux.getData())) {
+                    toAdd.add(aux.getData());
+                    break;
+                }
+            }
+            aux = aux.getNext();
+        }
+
+        if (toAdd.isEmpty()) {
+            head = null;
+            return true;
+        }
+
+        if (toAdd.size() == size()) {
+            return false;
+        }
+
+        head = new Node<>(toAdd.get(0));
+        aux = head;
+        for (int i = 1; i < toAdd.size(); i++) {
+            aux.setNext(new Node<>(toAdd.get(i)));
+            aux = aux.getNext();
+        }
+
+        return true;
+
     }
 
     @Override
@@ -417,7 +450,23 @@ public class SimpleList<T> implements List<T> {
 
     @Override
     public List<T> subList(int fromIndex, int toIndex) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'subList'");
+        if (fromIndex < 0 || toIndex > size() || fromIndex > toIndex) {
+            throw new IndexOutOfBoundsException("Índices fuera de rango.");
+        }
+    
+        List<T> subList = new SimpleList<>(); 
+        Node<T> aux = head;
+        int index = 0;
+    
+        while (aux != null && index < toIndex) {
+            if (index >= fromIndex) {
+                subList.add(aux.getData());
+            }
+            aux = aux.getNext();
+            index++;
+        }
+    
+        return subList;
+
     }
 }
